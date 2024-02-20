@@ -1,0 +1,27 @@
+
+{% from 'bootstrap5/form.html' import render_form %}
+{% include "header.html" %}
+
+
+<div class="my-5">
+  <div class="p-5 text-center bg-body-tertiary">
+    <div class="container py-5">
+      <h1 class="text-body-emphasis">Tokenize</h1>
+          <hr>
+        <form action="/tokenize" method="post">
+          <div class="row mb-3">
+            <label for="title" class="col-sm-2 col-form-label">Title:</label>
+            <div class="col-sm-10">
+              <input name="title" type="text" class="form-control" id="title">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Get Id !</button>
+        </form>
+    </div>
+  </div>
+</div>
+
+
+
+{% include "footer.html" %}

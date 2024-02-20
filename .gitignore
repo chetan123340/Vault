@@ -1,0 +1,6 @@
+.venv
+.idea
+__pycache__
+idk.py
+send_request.py
+token.py

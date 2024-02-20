@@ -1,0 +1,27 @@
+{% from 'bootstrap5/form.html' import render_form %}
+{% include "header.html" %}
+
+<body>
+<div class="my-5">
+  <div class="p-5 text-center bg-body-tertiary">
+    <div class="container py-5">
+      <h1 class="text-body-emphasis">Enter details of book to be added</h1>
+        <form action="/add-data" method="post">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="title" type="text" class="form-control" id="title" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input name="author" type="text" class="form-control" id="author">
+          </div>
+            <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input name="description" type="text" class="form-control" id="description">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+  </div>
+</div>
+{% include "footer.html" %}
