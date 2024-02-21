@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-from flask import Flask, request, render_template
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import Mapped, mapped_column
-from flask_bootstrap import Bootstrap5
-=======
->>>>>>> 4b058c089afbee73ed910dd7fd30d2564db1fe18
 import hashlib
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -43,10 +36,6 @@ class Books(db.Model):
 with app.app_context():
     db.create_all()
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4b058c089afbee73ed910dd7fd30d2564db1fe18
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -58,12 +47,7 @@ def tokenize():
         curr_book = request.form.get("title")
         book = db.session.execute(db.select(Books).where(Books.title == curr_book)).scalar()
         book_token = db.session.execute(db.select(Tokens).where(Tokens.book_id == book.id)).scalar()
-<<<<<<< HEAD
-        return render_template("result.html", title=curr_book, book_token=book_token)
-
-=======
         return render_template("tokenize.html", book_token=book_token)
->>>>>>> 4b058c089afbee73ed910dd7fd30d2564db1fe18
     return render_template("tokenize.html")
 
 
@@ -92,9 +76,5 @@ def add():
         )
         db.session.add(book)
         db.session.commit()
-<<<<<<< HEAD
-        return render_template("success.html", name=book_title, token=token_value)
-=======
         return render_template("add.html", book = book, token=token)
->>>>>>> 4b058c089afbee73ed910dd7fd30d2564db1fe18
     return render_template("add.html")

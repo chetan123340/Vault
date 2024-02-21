@@ -1,35 +1,4 @@
-<<<<<<< HEAD
-{% extends "base.html" %}
-{% block title %}Tokenize{% endblock %}
 
-{% block content %}
-
-      <div class="my-5">
-        <div class="p-5 text-center bg-body-tertiary">
-          <div class="container py-5">
-            <h1 class="text-body-emphasis">Enter details of book to be added</h1>
-              <form action="/add-data" method="post">
-                <div class="mb-3">
-                  <label for="title" class="form-label">Title</label>
-                  <input name="title" type="text" class="form-control" id="title" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                  <label for="author" class="form-label">Author</label>
-                  <input name="author" type="text" class="form-control" id="author">
-                </div>
-                  <div class="mb-3">
-                  <label for="description" class="form-label">Description</label>
-                  <input name="description" type="text" class="form-control" id="description">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-          </div>
-        </div>
-      </div>
-
-{% endblock %}
-
-=======
 {% extends 'base.html' %}
 {% block content %}
 
@@ -42,7 +11,7 @@
 				<h3 class="text-body-emphasis">Success !!</h3>
 				<p>The book addition was successful.</p>
 
-					<p>Book name: <b>{{book.title}}</b></p> 
+					<p>Book name: <b>{{book.title}}</b></p>
 					<p>Token: <code>{{token.token}}</code></p>
 				{% else %}
 				<h1 class="text-body-emphasis">Enter book details</h1>
@@ -69,4 +38,3 @@
 
 
 {% endblock content %}
->>>>>>> 4b058c089afbee73ed910dd7fd30d2564db1fe18
