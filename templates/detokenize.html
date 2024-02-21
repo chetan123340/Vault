@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "base.html" %}
 {% block title %}De-Tokenize{% endblock %}
 
@@ -19,9 +20,39 @@
 
             <button type="submit" class="btn btn-primary">Get Info!</button>
           </form>
+=======
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="card shadow">
+      <div class="card-body">
+        <h3 class="text-body-emphasis">De-Tokenize a Book Token</h3>
+        <form action="/detokenize" method="post">
+          <div class="row mb-3">
+            <label for="token" class="col-sm-2 col-form-label">Token:</label>
+            <div class="col-sm-10">
+              <input name="token" type="text" class="form-control" id="token">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Get Book Info</button>
+        </form>
+        <div class="my-3">
+          {% if book %}
+          <p>Book Title: <b>{{ book.title }}</b></p>
+          <p>Book Author: <b>{{ book.author }}</b></p>
+          <p>Book Description: <b>{{ book.description }}</b></p>
+          {% endif %}
+        </div>
+>>>>>>> 4b058c089afbee73ed910dd7fd30d2564db1fe18
       </div>
     </div>
   </div>
 
+<<<<<<< HEAD
 
 {% endblock %}
+=======
+{% endblock content %}
+>>>>>>> 4b058c089afbee73ed910dd7fd30d2564db1fe18

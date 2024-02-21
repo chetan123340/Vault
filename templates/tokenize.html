@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "base.html" %}
 {% block title %}Tokenize{% endblock %}
 
@@ -23,3 +24,31 @@
 
 {% endblock %}
 
+=======
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="card shadow">
+      <div class="card-body">
+        <h3 class="text-body-emphasis">Tokenize a Book Title</h3>
+        <form method="post">
+          <div class="row my-3">
+            <label for="title" class="col-sm-2 col-form-label">Title:</label>
+            <div class="col-sm-10">
+              <input name="title" type="text" class="form-control" id="title">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Get Book Token</button>
+        </form>
+        {% if book_token %}
+        <p class="my-3">Your token id: <code>{{book_token.token}}</code></p>
+        
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+>>>>>>> 4b058c089afbee73ed910dd7fd30d2564db1fe18
