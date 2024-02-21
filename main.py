@@ -43,7 +43,6 @@ def home():
 
 @app.route("/tokenize", methods=["POST", "GET"])
 def tokenize():
-
     if request.method == "POST":
         curr_book = request.form.get("title").lower()
         book = db.session.execute(db.select(Books).where(Books.title == curr_book)).scalar()
@@ -82,4 +81,4 @@ def add():
         db.session.add(book)
         db.session.commit()
         return render_template("success.html", name=book_title, token=token_value)
-    return render_template("add.html", form=form)
+    return render_template("add.html")
