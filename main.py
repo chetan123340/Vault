@@ -70,12 +70,12 @@ def tokenize():
         book = db.session.execute(db.select(Books).where(Books.title == curr_book)).scalar()
         book_token = db.session.execute(db.select(Tokens).where(Tokens.book_id == book.id)).scalar()
         # book_id = db.get_or_404(Tokens, curr_token)
-        return render_template("result.html", title = curr_book, book_token=book_token)
+        return render_template("result.html", title=curr_book, book_token=book_token)
 
     return render_template("tokenize.html")
 
 
-@app.route("/detokenize", methods=["POST","GET"])
+@app.route("/detokenize", methods=["POST", "GET"])
 def detokenize():
     if request.method == "POST":
         book_token = request.form.get("token")
@@ -83,7 +83,6 @@ def detokenize():
         book = db.session.execute(db.select(Books).where(Books.id == table_token.book_id)).scalar()
         return render_template("book_details.html", book=book)
     return render_template("detokenize.html")
-
 
 
 @app.route("/add-data", methods=["POST", "GET"])
