@@ -1,6 +1,7 @@
-.venv
+venv/
 .idea
-__pycache__
+__pycache__/
 idk.py
 send_request.py
 token.py
+instance/
