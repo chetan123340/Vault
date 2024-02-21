@@ -1,16 +1,16 @@
-{% include "header.html" %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% include "footer.html" %}
+{% extends 'base.html' %}
+{% block content %}
+<div class=" px-4 py-5 text-center">
+    <div class="py-5">
+      <h1 class="display-5 fw-bold ">Book Vault 📑 </h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4">Explore on of the most secure vault to store your book!</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a href="{{url_for('add')}}" class="btn btn-outline-primary btn-lg px-4 me-sm-3 fw-bold">Add a Book!</a>
+          <a href="{{url_for('tokenize')}}" class="btn btn-outline-primary btn-lg px-4">Tokenize Book</a>
+          <a href="{{url_for('detokenize')}}" class="btn btn-outline-primary btn-lg px-4">De-Tokenize Book</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

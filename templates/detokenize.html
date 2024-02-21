@@ -1,10 +1,11 @@
-{% include "header.html" %}
-
-<div class="my-5">
-  <div class="p-5 text-center bg-body-tertiary">
-    <div class="container py-5">
-      <h1 class="text-body-emphasis">De-Tokenize</h1>
-          <hr>
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="card shadow">
+      <div class="card-body">
+        <h3 class="text-body-emphasis">De-Tokenize a Book Token</h3>
         <form action="/detokenize" method="post">
           <div class="row mb-3">
             <label for="token" class="col-sm-2 col-form-label">Token:</label>
@@ -12,12 +13,18 @@
               <input name="token" type="text" class="form-control" id="token">
             </div>
           </div>
-
-          <button type="submit" class="btn btn-primary">Get Info!</button>
+          <button type="submit" class="btn btn-primary">Get Book Info</button>
         </form>
+        <div class="my-3">
+          {% if book %}
+          <p>Book Title: <b>{{ book.title }}</b></p>
+          <p>Book Author: <b>{{ book.author }}</b></p>
+          <p>Book Description: <b>{{ book.description }}</b></p>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-
-{% include "footer.html" %}
+{% endblock content %}
