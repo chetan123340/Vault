@@ -1,12 +1,7 @@
-from flask import Flask, request, render_template, url_for
+from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 from flask_bootstrap import Bootstrap5
-from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.fields.simple import SubmitField
-from wtforms.validators import DataRequired
 import hashlib
 
 db = SQLAlchemy()
@@ -41,35 +36,18 @@ with app.app_context():
     db.create_all()
 
 
-class MyForm(FlaskForm):
-    token = StringField('Token', validators=[DataRequired()])
-    title = StringField('Title', validators=[DataRequired()])
-    author = StringField('Author', validators=[DataRequired()])
-    description = StringField('Description', validators=[DataRequired()])
-    submit = SubmitField()
-
-
 @app.route("/")
 def home():
     return render_template("home.html")
 
 
-# @app.route("/result")
-# def result(book):
-#     return render_template("result.html", book=book)
-
-
 @app.route("/tokenize", methods=["POST", "GET"])
 def tokenize():
-    def get_id(token: str) -> str:
-        pass
 
-    # data = request.get_json()
     if request.method == "POST":
         curr_book = request.form.get("title").lower()
         book = db.session.execute(db.select(Books).where(Books.title == curr_book)).scalar()
         book_token = db.session.execute(db.select(Tokens).where(Tokens.book_id == book.id)).scalar()
-        # book_id = db.get_or_404(Tokens, curr_token)
         return render_template("result.html", title=curr_book, book_token=book_token)
 
     return render_template("tokenize.html")
@@ -87,7 +65,6 @@ def detokenize():
 
 @app.route("/add-data", methods=["POST", "GET"])
 def add():
-    form = MyForm()
     if request.method == "POST":
         book_title = request.form["title"].lower()
         token_value = my_get_token(book_title)
