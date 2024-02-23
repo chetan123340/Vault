@@ -23,14 +23,14 @@ def my_get_token(raw_words: str) -> str:
 
 class Tokens(db.Model):
     book_id: Mapped[int] = mapped_column(primary_key=True)
-    token: Mapped[str] = mapped_column(unique=True)
+    token: Mapped[str] = mapped_column(unique=True, nullable=False)
 
 
 class Books(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(unique=True)
-    author: Mapped[str] = mapped_column(unique=False)
-    description: Mapped[str] = mapped_column(unique=False)
+    title: Mapped[str] = mapped_column(unique=True, nullable=False)
+    author: Mapped[str] = mapped_column(unique=False, nullable=False)
+    description: Mapped[str] = mapped_column(unique=False, nullable=False)
 
 
 with app.app_context():
@@ -46,8 +46,13 @@ def tokenize():
     if request.method == "POST":
         curr_book = request.form.get("title")
         book = db.session.execute(db.select(Books).where(Books.title == curr_book)).scalar()
-        book_token = db.session.execute(db.select(Tokens).where(Tokens.book_id == book.id)).scalar()
-        return render_template("tokenize.html", book_token=book_token)
+        if book:
+            book_token = db.session.execute(db.select(Tokens).where(Tokens.book_id == book.id)).scalar()
+            return render_template("tokenize.html", book_token=book_token)
+        else:
+            # Book not found
+            return render_template("error.html", message="Book not found")
+
     return render_template("tokenize.html")
 
 
@@ -56,8 +61,12 @@ def detokenize():
     if request.method == "POST":
         book_token = request.form.get("token")
         table_token = db.session.execute(db.select(Tokens).where(Tokens.token == book_token)).scalar()
-        book = db.session.execute(db.select(Books).where(Books.id == table_token.book_id)).scalar()
-        return render_template("detokenize.html", book=book)
+        if table_token:
+            book = db.session.execute(db.select(Books).where(Books.id == table_token.book_id)).scalar()
+            return render_template("detokenize.html", book=book)
+        else:
+            # Token not found
+            return render_template("error.html", message="Token not found")
     return render_template("detokenize.html")
 
 
@@ -78,3 +87,12 @@ def add():
         db.session.commit()
         return render_template("add.html", book = book, token=token)
     return render_template("add.html")
+
+@app.route("/api/tokenize", methods=["POST"])
+def api_tokenize():
+    pass
+
+@app.route("/api/detokenize", methods=["POST"])
+def api_detokenize():
+    pass
+
