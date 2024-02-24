@@ -1,5 +1,7 @@
 import hashlib
-from flask import Flask, request, render_template
+import json
+
+from flask import Flask, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -35,6 +37,7 @@ class Books(db.Model):
 
 with app.app_context():
     db.create_all()
+
 
 @app.route("/")
 def home():
@@ -75,7 +78,7 @@ def add():
     if request.method == "POST":
         book_title = request.form["title"]
         token_value = my_get_token(book_title.lower())
-        token = Tokens( token=token_value )
+        token = Tokens(token=token_value)
         db.session.add(token)
         db.session.commit()
         book = Books(
@@ -85,14 +88,43 @@ def add():
         )
         db.session.add(book)
         db.session.commit()
-        return render_template("add.html", book = book, token=token)
+        return render_template("add.html", book=book, token=token)
     return render_template("add.html")
 
-@app.route("/api/tokenize", methods=["POST"])
-def api_tokenize():
-    pass
 
 @app.route("/api/detokenize", methods=["POST"])
 def api_detokenize():
-    pass
+    if request.method == "POST":
+        json_request = json.loads(request.json)
+        book_data = {}
 
+        for key, value in json_request["data"].items():
+            # Check for token availability
+            token_available = db.session.execute(db.select(Tokens).where(Tokens.token == value)).scalar()
+
+            if token_available:
+                # Fetch book details from the database
+                details = db.session.execute(db.select(Books).where(Books.id == token_available.book_id)).scalar()
+                book_detail = {
+                    details.title: {
+                        "Author": details.author,
+                        "Description": details.description
+                    }
+                }
+                curr_detail = {
+                    "found": True,
+                    "value": book_detail
+                }
+                book_data[details.title] = curr_detail
+            else:
+                curr_detail = {
+                    "found": False,
+                    "value": ""
+                }
+                book_data[key] = curr_detail
+
+        response = {
+            "user_id": json_request["user_id"],
+            "data": book_data
+        }
+        return jsonify(response)
