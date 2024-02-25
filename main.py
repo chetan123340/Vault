@@ -1,15 +1,17 @@
 import hashlib
 import json
-
+import os
+from dotenv import load_dotenv
 from flask import Flask, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import Mapped, mapped_column
 
+load_dotenv()
 db = SQLAlchemy()
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 db.init_app(app)
-app.config["SECRET_KEY"] = "FLASK_KEY"
+app.config["SECRET_KEY"] = os.getenv("KEY")
 
 
 def my_get_token(raw_words: str) -> str:
