@@ -5,3 +5,4 @@ idk.py
 send_request.py
 token.py
 instance/
+.env
