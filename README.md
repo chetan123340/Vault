@@ -21,7 +21,6 @@ This project provides a secure application vault specifically designed to store 
 2. **Install dependencies:**
 
    ```bash
-   cd app-vault
    pip install -r requirements.txt
    ```
 
